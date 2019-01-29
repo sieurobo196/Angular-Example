@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
+<p>Select a car:</p>
+
+<select ng-model="selectedCar" ng-options="x.model for x in cars" ng-init="selectedCar=cars[0]">
+</select>
+
+<h1>You selected: {{selectedCar.model}}</h1>
+<h1>id: {{selectedCar.id}}</h1>
+<p>Its color is: {{selectedCar.color}}</p>
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.cars = [
+        {id:1,model : "Ford Mustang", color : "red"},
+        {id:2,model : "Fiat 500", color : "white"},
+        {id:3,model : "Volvo XC90", color : "black"}
+    ];
+
+});
+</script>
+
+<p>When you use the ng-options directive to create dropdown lists, the selected value can be an object.</p>
+<p>In this example you can display both the model and the color of the selected element.</p>
+
+</body>
+</html>

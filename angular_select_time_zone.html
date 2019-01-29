@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Example change Date by timezone</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+    </head>
+    <body>
+        <div ng-app="myApp" ng-controller="myCtrl">
+            <select select-picker="timeZoneIds" data-live-search="true" class="form-control show-tick" ng-model="selectedTimezone" ng-init="selectedTimezone = 'UTC'"  name="selectTimeZone" ng-change="changeTimeZone()">
+                <option ng-repeat="x in timezones" value="{{x.timezonename}}" label="{{x.timezonename}}">{{x.timezonename}}</option>
+            </select>
+            <p>TimeZone select: {{selectedTimezone}}</p>
+            <p>Date : {{dateTime}}</p>
+        </div>
+        <script>
+                    var app = angular.module('myApp', []);
+                    app.controller('myCtrl', function ($scope) {
+                        var self = this;
+                        $scope.selectedTimezone = "UTC";
+                        $scope.timezones = [];
+                        $scope.timezones[0] = {id: '0', timezonename: "UTC"};
+                        $scope.timezones[1] = {id: '1', timezonename: "America/Chicago"};
+                        $scope.timezones[2] = {id: '2', timezonename: "Australia/Broken_Hill"};
+                        $scope.timezones[3] = {id: '3', timezonename: "Europe/London"};
+                        $scope.timezones[4] = {id: '4', timezonename: "Asia/Hong_Kong"};
+                        $scope.timezones[5] = {id: '5', timezonename: "Asia/Ho_Chi_Minh"};
+                        $scope.dateTime = "";
+                        var dateUTC = new Date();
+                        $scope.dateTime = dateUTC.getUTCFullYear() + "-" + ('0' + (dateUTC.getUTCMonth() + 1)).slice(-2) + "-" + ('0' + dateUTC.getUTCDate()).slice(-2)
+                                + "T" + ('0' + dateUTC.getUTCHours()).slice(-2) + ":" + ('0' + dateUTC.getUTCMinutes()).slice(-2) + ":" + ('0' + dateUTC.getUTCSeconds()).slice(-2);
+//                              
+                        $scope.changeTimeZone = function () {
+                            if ($scope.selectedTimezone == "") {
+                                console.log("get UTC");
+                                var date = new Date();
+                                $scope.dateTime = date.getUTCFullYear() + "-" + ('0' + (date.getUTCMonth() + 1)).slice(-2) + "-" + ('0' + date.getUTCDate()).slice(-2)
+                                        + "T" + ('0' + date.getUTCHours()).slice(-2) + ":" + ('0' + date.getUTCMinutes()).slice(-2) + ":" + ('0' + date.getUTCSeconds()).slice(-2);
+                            } else {
+                                console.log("get Date by TimeZone");
+                                console.log($scope.selectedTimezone);
+                                var aestTime = new Date().toLocaleString("en-US", {timeZone: $scope.selectedTimezone});
+                                var date = new Date(aestTime);
+                                $scope.dateTime = date.getFullYear() + "-" + ('0' + (date.getMonth() + 1)).slice(-2) + "-" + ('0' + date.getDate()).slice(-2)
+                                        + "T" + ('0' + date.getHours()).slice(-2) + ":" + ('0' + date.getMinutes()).slice(-2) + ":" + ('0' + date.getSeconds()).slice(-2);
+                            }
+
+                        };
+                    });
+
+        </script>
+    </body>
+</html>

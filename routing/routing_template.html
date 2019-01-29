@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+
+<body ng-app="myApp">
+
+<p><a href="#/!">Main</a></p>
+<a href="#!red">Red</a>
+<a href="#!blue">Blue</a>
+<a href="#!green">Green</a>
+<a href="#!other">Other</a>
+
+<p>Click on the links to change the content.</p>
+
+<p>The HTML shown in the ng-view directive are written in the template property of the $routeProvider.when method.</p>
+
+<div ng-view></div>
+
+<script>
+var app = angular.module("myApp", ["ngRoute"]);
+app.config(function($routeProvider) {
+    $routeProvider
+    .when("/", {
+        template : "<h1>Main</h1><p>Click on the links to change this content</p>"
+    })
+    .when("/red", {
+        template : "<h1>Red</h1><p>I Like Red</p>"
+    })
+    .when("/blue", {
+        template : "<h1>Blue</h1><p>I Love Blue</p>"
+    })
+    .when("/green", {
+        template : "<h1>Green</h1><p>I Hate Green</p>"
+    })
+    .otherwise({
+        template : "<h1>Nothing</h1><p>Nothing has been selected</p>"
+    });
+});
+</script>
+
+</body>
+</html>
